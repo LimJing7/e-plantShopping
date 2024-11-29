@@ -12,13 +12,13 @@ const CartItem = ({ onContinueShopping }) => {
     let totalCost = 0;
     cart.forEach((item) => {
       const cost = Number(item.cost.split('$')[1])
-      totalCost += item.cost * item.quantity;
+      totalCost += cost * item.quantity;
     });
     return totalCost;
   };
 
   const handleContinueShopping = (e) => {
-    onContinueShopping()
+    onContinueShopping(e)
   };
 
   const handleCheckoutShopping = (e) => {

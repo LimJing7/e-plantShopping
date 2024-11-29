@@ -272,8 +272,19 @@ function ProductList() {
         return totalQuant;
     };
 
+    const updateAddedToCart = () => {
+        setAddedToCart((prevState) => ({}));
+        cartItems.forEach((item) => {
+            setAddedToCart((prevState) => ({
+                ...prevState,
+                [item.name]: true, // Set the product name as key and value as true to indicate it's added to cart
+            }));
+        });
+    }
+
     useEffect(() => {
         setTotalQuant(calculateTotalQuantity());
+        updateAddedToCart();
     }, [cartItems]);
 
     return (
@@ -318,7 +329,15 @@ function ProductList() {
                                         <div className='product-title'>{plant.name}</div>
                                         <div className='product-desc'>{plant.description}</div>
                                         <div className='product-cost'>{plant.cost}</div>
-                                        <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                        <div className='button_container'>
+                                            <button
+                                                className={addedToCart[plant.name] ? "product-button added-to-cart" : "product-button"}
+                                                disabled={addedToCart[plant.name]}
+                                                onClick={() => handleAddToCart(plant)}
+                                            >
+                                                {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"}
+                                            </button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
